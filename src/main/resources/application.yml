@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: "dev"
+---
+#dev profile
+server:
+  port: 8082
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+  jackson:
+    default-property-inclusion: non_null
+  datasource:
+    url: jdbc:mysql://10.82.30.31:3306/scenes?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true&connectionAttributes=program_name:walking
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+      connection-test-query: SELECT 1
+      connection-timeout: 1800000
+  data:
+    redis:
+      database: 0
+      host: 10.82.30.31
+      port: 6378
+      password: watsons_cloud
+      lettuce:
+        pool:
+          max-active: 20
+          max-wait: -1
+          max-idle: 5
+          min-idle: 1

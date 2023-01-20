@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.0.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.excavator.boot</groupId>
+	<artifactId>springboot3-graalvm</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>springboot3-graalvm</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>19</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.encoding>UTF-8</project.encoding>
+
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+
+		<skipTests>true</skipTests>
+		<docker.image.prefix>watsons</docker.image.prefix>
+		<rocketmq.version>4.7.1</rocketmq.version>
+		<scala.major-version>2.13</scala.major-version>
+		<scala.version>${scala.major-version}.10</scala.version>
+		<alchim31.scala.plugin>4.6.2</alchim31.scala.plugin>
+		<log4j2.version>2.17.0</log4j2.version>
+		<!-- current mysql connector version can not change -->
+		<mysql-connector.version>8.0.19</mysql-connector.version>
+		<commons-text.version>1.10.0</commons-text.version>
+		<mp-sdk-starter.version>1.0.10</mp-sdk-starter.version>
+		<spring-boot-starter.version>2.7.6</spring-boot-starter.version>
+		<mybatis-starter.version>2.0.1</mybatis-starter.version>
+		<commons-lang3.version>3.12.0</commons-lang3.version>
+		<commons-collections4.version>4.4</commons-collections4.version>
+		<jjwt.version>0.10.5</jjwt.version>
+
+		<main.user.dir>${user.dir}</main.user.dir>
+		<!-- plugin -->
+		<license.maven.plugin>3.0</license.maven.plugin>
+		<maven.java.formatter.plugin>0.4</maven.java.formatter.plugin>
+		<maven.compiler.plugin>3.8.1</maven.compiler.plugin>
+		<maven.source.plugin>3.2.1</maven.source.plugin>
+		<maven.javadoc.plugin>3.2.0</maven.javadoc.plugin>
+		<maven.gpg.plugin>1.6</maven.gpg.plugin>
+		<cobertura.maven.plugin>2.7</cobertura.maven.plugin>
+		<coveralls.maven.plugin>4.3.0</coveralls.maven.plugin>
+		<alchim31.scala.plugin>4.7.2</alchim31.scala.plugin>
+		<maven.surefire.plugin>3.0.0-M5</maven.surefire.plugin>
+		<enforcer.plugin>3.0.0</enforcer.plugin>
+		<cloud-boot.version>0.0.1</cloud-boot.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>${commons-collections4.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-core</artifactId>
+			<version>5.7.15</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.graalvm.buildtools</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<id>build-native</id>
+						<goals>
+							<goal>compile-no-fork</goal>
+						</goals>
+						<phase>package</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>com.excavator.boot.springboot3graalvm.Springboot3GraalvmApplication</mainClass>
+					<metadataRepository>
+						<enabled>true</enabled>
+					</metadataRepository>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.excavator.boot.springboot3graalvm.Springboot3GraalvmApplication</mainClass>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
